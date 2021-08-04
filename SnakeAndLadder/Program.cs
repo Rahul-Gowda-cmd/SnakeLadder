@@ -6,12 +6,16 @@ namespace SnakeAndLadder
     {
         public const int IsLadder = 1;
         public const int IsSnake = 2;
+        public const int ISPlayer1 = 1;
+        public const int ISPlayer2 = 2;
         static void Main(string[] args)
         {
-            int PositionOfPlayer = 0;
+            int player = 1;
+            int PositionOfPlayer1 = 0;
+            int PositionOfPlayer2 = 0;
             int dieRollCount = 0;
 
-            while (PositionOfPlayer < 100)
+            while (PositionOfPlayer1 < 100 && PositionOfPlayer2 < 100)
             {
                 dieRollCount++;
                 Random random = new Random();
@@ -20,29 +24,75 @@ namespace SnakeAndLadder
                 switch (option)
                 {
                     case IsLadder:
-                        Console.WriteLine("Yeah! its a ladder,please step up : ");
-                        PositionOfPlayer += dice;
+                        Console.WriteLine($"The player {player} rolled a die " + dice);
+                        Console.WriteLine($"Yeah! Player{player}, its a ladder,you are moving ahead");
+                        if (player == ISPlayer1)
+                            PositionOfPlayer1 += dice;
+                        else
+                            PositionOfPlayer2 += dice;
                         break;
 
                     case IsSnake:
-                        Console.WriteLine("Opss! its a snake,you are going down : ");
-                        PositionOfPlayer -= dice;
-                        if (PositionOfPlayer < 0)
-                            PositionOfPlayer = 0;
+                        Console.WriteLine($"The player {player} rolled a die " + dice);
+                        Console.WriteLine($"Opss! Player{player}, its a snake,you are going down");
+
+                        if (player == ISPlayer2)
+                        {
+                            PositionOfPlayer2 -= dice;
+                            if (PositionOfPlayer2 < 0)
+                                PositionOfPlayer2 = 0;
+                        }
+                        else
+                        {
+                            PositionOfPlayer1 -= dice;
+                            if (PositionOfPlayer1 < 0)
+                                PositionOfPlayer1 = 0;
+                        }
                         break;
 
                     default:
-                        Console.WriteLine("You cannot move : ");
+                        Console.WriteLine($"Player {player},You cannot move");
                         break;
                 }
-                if (PositionOfPlayer > 100)
+                if (PositionOfPlayer1 > 100 || PositionOfPlayer2 > 100)
                 {
-                    PositionOfPlayer -= dice;
-                    Console.WriteLine("Cannot move ...please roll again");
+
+                    Console.WriteLine($"Player {player}Cannot move ...rolling again");
+                    if (player == ISPlayer1)
+                        PositionOfPlayer1 -= dice;
+                    else
+                        PositionOfPlayer2 -= dice;
+
+
                 }
-                Console.WriteLine("Position of player at initial is " + PositionOfPlayer + ",and rolled a die : " + dice);
+                Console.WriteLine("player 1 is at position : \t" + PositionOfPlayer1);
+                Console.WriteLine("player 2 is at position : \t" + PositionOfPlayer2);
+
+                if (option == IsLadder)
+                {
+                    Console.WriteLine($"Congrats! its an ladder, Player{player}, got one more Chance to roll the die");
+                }
+                else if (player == ISPlayer1)
+                {
+                    Console.WriteLine("Second Player turn");
+                    player = 2;
+                }
+                else
+                {
+                    Console.WriteLine("First Player Turn");
+                    player = 1;
+                }
             }
             Console.WriteLine("The total no of time die was rolled to win is :" + dieRollCount);
-        }
+            if (PositionOfPlayer1 == 100)
+            {
+                Console.WriteLine("Player1 Wins");
+            }
+            else
+            {
+                Console.WriteLine("Player2 Wins");
+            }
+        
+            }
     }
 }
