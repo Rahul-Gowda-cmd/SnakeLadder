@@ -9,24 +9,31 @@ namespace SnakeAndLadder
         static void Main(string[] args)
         {
             int PositionOfPlayer = 0;
-            Random random = new Random();
-            int dice = random.Next(1, 7);
-            int option = random.Next(0, 3);
-            switch (option)
+            while (PositionOfPlayer < 100)
             {
-                case IsLadder:
-                    PositionOfPlayer += dice;
-                    break;
+                Random random = new Random();
+                int dice = random.Next(1, 7);
+                int option = random.Next(0, 3);
+                switch (option)
+                {
+                    case IsLadder:
+                        Console.WriteLine("Yeah! its a ladder,please step up : ");
+                        PositionOfPlayer += dice;
+                        break;
 
-                case IsSnake:
-                    PositionOfPlayer -= dice;
-                    if (PositionOfPlayer < 0)
-                        PositionOfPlayer = 0;
-                    break;
+                    case IsSnake:
+                        Console.WriteLine("Opss! its a snake,you are going down : ");
+                        PositionOfPlayer -= dice;
+                        if (PositionOfPlayer < 0)
+                            PositionOfPlayer = 0;
+                        break;
 
-                default: break;
+                    default:
+                        Console.WriteLine("You cannot move : ");
+                        break;
+                }
+                Console.WriteLine("Position of player at initial is " + PositionOfPlayer + ",and rolled a die : " + dice);
             }
-            Console.WriteLine("Position of player at initial is " + PositionOfPlayer + ",and rolled a die : " + dice);
         }
     }
 }
