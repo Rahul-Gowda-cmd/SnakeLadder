@@ -9,8 +9,11 @@ namespace SnakeAndLadder
         static void Main(string[] args)
         {
             int PositionOfPlayer = 0;
+            int dieRollCount = 0;
+
             while (PositionOfPlayer < 100)
             {
+                dieRollCount++;
                 Random random = new Random();
                 int dice = random.Next(1, 7);
                 int option = random.Next(0, 3);
@@ -39,6 +42,7 @@ namespace SnakeAndLadder
                 }
                 Console.WriteLine("Position of player at initial is " + PositionOfPlayer + ",and rolled a die : " + dice);
             }
+            Console.WriteLine("The total no of time die was rolled to win is :" + dieRollCount);
         }
     }
 }
