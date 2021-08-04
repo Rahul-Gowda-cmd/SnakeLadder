@@ -32,6 +32,11 @@ namespace SnakeAndLadder
                         Console.WriteLine("You cannot move : ");
                         break;
                 }
+                if (PositionOfPlayer > 100)
+                {
+                    PositionOfPlayer -= dice;
+                    Console.WriteLine("Cannot move ...please roll again");
+                }
                 Console.WriteLine("Position of player at initial is " + PositionOfPlayer + ",and rolled a die : " + dice);
             }
         }
